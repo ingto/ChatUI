@@ -186,7 +186,7 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
     rightAction,
     Composer = DComposer,
     inputable = true, // 自定义修改：默认值为 true，如果不提供 inputable 属性
-    safetyAreaHeight = false
+    safetyAreaHeight
   } = props;
 
   function handleInputFocus(e: React.FocusEvent<HTMLTextAreaElement>) {
@@ -229,6 +229,11 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
         />
 
         <div className="ChatFooter">
+          {/* <div className="SafetyArea_Defulat"/> */}
+          {safetyAreaHeight && (//自定义修改：安全区域
+            <div className="SafetyArea" style={{ height: `${safetyAreaHeight}px` }} />
+          )}
+
           {renderQuickReplies ? (
             renderQuickReplies()
           ) : (
@@ -262,10 +267,6 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
             />
           )}
         </div>
-        
-        {safetyAreaHeight && //自定义修改：安全区域
-          <div style={{ height: `${safetyAreaHeight}px` }} className="SafetyArea" />
-        }
       </div>
     </ConfigProvider>
   );
