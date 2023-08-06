@@ -121,3 +121,7 @@ Visit [i18n](https://chatui.io/docs/i18n) for detail
 ## License
 
 MIT
+
+## 打包命令
+npm run prepublishOnly
+

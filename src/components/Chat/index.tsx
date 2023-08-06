@@ -18,6 +18,15 @@ export type ChatProps = Omit<ComposerProps, 'onFocus' | 'onChange' | 'onBlur'> &
      */
     // wideBreakpoint?: string;
     /**
+     * ——————> 自定义修改：决定是否渲染 Composer 组件的属性 <——————
+     */
+    inputable?: boolean;
+    /**
+     * ———————> 自定义修改：安全区高度 <——————
+     */
+    safetyAreaHeight?: number;
+    //
+    /**
      * 导航栏配置
      */
     navbar?: NavbarProps;
@@ -176,6 +185,8 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
     onAccessoryToggle,
     rightAction,
     Composer = DComposer,
+    inputable = true, // 自定义修改：默认值为 true，如果不提供 inputable 属性
+    safetyAreaHeight = false
   } = props;
 
   function handleInputFocus(e: React.FocusEvent<HTMLTextAreaElement>) {
@@ -216,6 +227,7 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
           onBackBottomShow={onBackBottomShow}
           onBackBottomClick={onBackBottomClick}
         />
+
         <div className="ChatFooter">
           {renderQuickReplies ? (
             renderQuickReplies()
@@ -227,27 +239,33 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
               onScroll={onQuickReplyScroll}
             />
           )}
-          <Composer
-            wideBreakpoint={wideBreakpoint}
-            ref={composerRef}
-            inputType={inputType}
-            text={text}
-            textOnce={textOnce}
-            inputOptions={inputOptions}
-            placeholder={placeholder}
-            onAccessoryToggle={onAccessoryToggle}
-            recorder={recorder}
-            toolbar={toolbar}
-            onToolbarClick={onToolbarClick}
-            onInputTypeChange={onInputTypeChange}
-            onFocus={handleInputFocus}
-            onChange={onInputChange}
-            onBlur={onInputBlur}
-            onSend={onSend}
-            onImageSend={onImageSend}
-            rightAction={rightAction}
-          />
+          {inputable && (  // 自定义修改：基于 inputable 的值来决定是否渲染 Composer
+            <Composer
+              wideBreakpoint={wideBreakpoint}
+              ref={composerRef}
+              inputType={inputType}
+              text={text}
+              textOnce={textOnce}
+              inputOptions={inputOptions}
+              placeholder={placeholder}
+              onAccessoryToggle={onAccessoryToggle}
+              recorder={recorder}
+              toolbar={toolbar}
+              onToolbarClick={onToolbarClick}
+              onInputTypeChange={onInputTypeChange}
+              onFocus={handleInputFocus}
+              onChange={onInputChange}
+              onBlur={onInputBlur}
+              onSend={onSend}
+              onImageSend={onImageSend}
+              rightAction={rightAction}
+            />
+          )}
         </div>
+        
+        {safetyAreaHeight && //自定义修改：安全区域
+          <div style={{ height: `${safetyAreaHeight}px` }} className="SafetyArea" />
+        }
       </div>
     </ConfigProvider>
   );
