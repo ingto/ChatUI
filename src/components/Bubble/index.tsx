@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 
 // export interface BubbleProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'content'> {
 //   type?: string;
@@ -15,11 +15,12 @@ import React from 'react';
 //   );
 // });
 
-// import React from 'react';
+import React from 'react';
 
+// @ts-ignore
 export interface BubbleProps extends React.HTMLAttributes<HTMLDivElement> {
   type?: string;
-  this_content?: React.ReactNode;
+  content?: React.ReactNode;
 }
 
 export const Bubble = React.forwardRef<HTMLDivElement, BubbleProps>((props, ref) => {
