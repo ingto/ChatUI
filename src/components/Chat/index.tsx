@@ -199,6 +199,11 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
   }
 
   useEffect(() => {
+    //自定义修改：组件挂载和卸载时滚动到底部
+    if (messagesRef && messagesRef.current) {
+      messagesRef.current.scrollToEnd({ animated: false, force: true });
+    }
+
     const rootEl = document.documentElement;
     if (isSafari()) {
       rootEl.dataset.safari = '';
