@@ -234,16 +234,15 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
             <div className="SafetyArea" style={{ height: `${safetyAreaHeight}px` }} />
           )}
 
-          {renderQuickReplies ? (
-            renderQuickReplies()
-          ) : (
-            <QuickReplies
-              items={quickReplies}
-              visible={quickRepliesVisible}
-              onClick={onQuickReplyClick}
-              onScroll={onQuickReplyScroll}
-            />
-          )}
+          {inputable ? (
+            renderQuickReplies ? renderQuickReplies() : <QuickReplies
+            items={quickReplies}
+            visible={quickRepliesVisible}
+            onClick={onQuickReplyClick}
+            onScroll={onQuickReplyScroll}
+          />
+          ) : null}
+          
           {inputable && (  // 自定义修改：基于 inputable 的值来决定是否渲染 Composer
             <Composer
               wideBreakpoint={wideBreakpoint}
